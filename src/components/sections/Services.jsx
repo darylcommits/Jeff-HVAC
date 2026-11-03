@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, Fan, Sparkles, Snowflake, Wind, Wrench, ArrowRight, CheckCircle, X } from 'lucide-react';
+import { Cpu, Fan, Sparkles, Snowflake, Wind, Wrench, Truck, ArrowRight, CheckCircle, X } from 'lucide-react';
 
 const ICON_MAP = {
   Cpu: Cpu,
@@ -9,6 +9,7 @@ const ICON_MAP = {
   Snowflake: Snowflake,
   Wind: Wind,
   Wrench: Wrench,
+  Truck: Truck,
 };
 
 export default function Services({ services = [], onBookService }) {

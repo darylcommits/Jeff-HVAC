@@ -188,6 +188,18 @@ const INITIAL_DATA = {
       features: ['Complete Tub Disassembly Wash', 'Mold & Slime Bio-Removal', 'Filter & Lint Trap Descaling', 'Odor-Free High-Pressure Steam Sanitization'],
       is_published: true,
       display_order: 11
+    },
+    {
+      id: 'srv-12',
+      title: 'Unit Pull Out of AC or Ref',
+      slug: 'unit-pull-out-ac-or-ref',
+      short_description: 'Safe on-site uninstallation, secure vehicle transport, comprehensive workshop overhaul, and guaranteed re-installation.',
+      full_description: 'Specialized unit pull-out service for air conditioners and refrigerators requiring intensive workshop repairs, internal evaporator leak braze welding, sealed system chemical flush, or major compressor overhaul. Includes safe refrigerant pump-down, transport, and complete re-installation.',
+      icon_name: 'Truck',
+      image_url: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1200&q=80',
+      features: ['Safe Refrigerant Pump-Down', 'Insured Equipment Transport', 'Full Workshop Pressure & Bench Test', 'Precision Re-installation & Vacuum Testing'],
+      is_published: true,
+      display_order: 12
     }
   ],
   projects: [

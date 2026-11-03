@@ -263,6 +263,16 @@ VALUES
     'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=1200&q=80',
     ARRAY['Complete Tub Disassembly Wash', 'Mold & Slime Bio-Removal', 'Filter & Lint Trap Descaling', 'Odor-Free High-Pressure Steam Sanitization'],
     11
+),
+(
+    'Unit Pull Out of AC or Ref',
+    'unit-pull-out-ac-or-ref',
+    'Safe on-site uninstallation, secure vehicle transport, comprehensive workshop overhaul, and guaranteed re-installation.',
+    'Specialized unit pull-out service for air conditioners and refrigerators requiring intensive workshop repairs, internal evaporator leak braze welding, sealed system chemical flush, or major compressor overhaul. Includes safe refrigerant pump-down, transport, and complete re-installation.',
+    'Truck',
+    'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1200&q=80',
+    ARRAY['Safe Refrigerant Pump-Down', 'Insured Equipment Transport', 'Full Workshop Pressure & Bench Test', 'Precision Re-installation & Vacuum Testing'],
+    12
 ) ON CONFLICT (slug) DO UPDATE SET
     title = EXCLUDED.title,
     short_description = EXCLUDED.short_description,
