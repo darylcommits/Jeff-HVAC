@@ -83,6 +83,13 @@ export default function AdminDashboard({ onExitAdmin }) {
   };
 
   useEffect(() => {
+    // Keep URL bar synced to /admin
+    if (typeof window !== 'undefined' && window.location.pathname.toLowerCase() !== '/admin') {
+      window.history.replaceState({}, '', '/admin');
+    }
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       loadAdminData();
     }

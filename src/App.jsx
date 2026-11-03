@@ -25,10 +25,16 @@ import {
   INITIAL_FAQS,
   INITIAL_SETTINGS
 } from './lib/supabase';
-import { Shield } from 'lucide-react';
+
+function checkIsAdminRoute() {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+  const hash = window.location.hash.toLowerCase().replace(/\/+$/, '');
+  return path === '/admin' || hash === '#admin' || hash === '#/admin' || hash.startsWith('#admin');
+}
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('public'); // 'public' | 'admin'
+  const [currentView, setCurrentView] = useState(() => (checkIsAdminRoute() ? 'admin' : 'public')); // 'public' | 'admin'
   const [services, setServices] = useState(INITIAL_SERVICES);
   const [projects, setProjects] = useState(INITIAL_PROJECTS);
   const [testimonials, setTestimonials] = useState(INITIAL_TESTIMONIALS);
@@ -63,15 +69,21 @@ export default function App() {
   useEffect(() => {
     fetchData();
 
-    // Listen to hash changes e.g. #admin or #admin-demo
-    const handleHash = () => {
-      if (window.location.hash.startsWith('#admin')) {
+    // URL route listener: /admin or #admin
+    const handleRouteChange = () => {
+      if (checkIsAdminRoute()) {
         setCurrentView('admin');
+      } else {
+        setCurrentView('public');
       }
     };
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleRouteChange();
+    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('hashchange', handleRouteChange);
+    };
   }, []);
 
   const handleOpenBooking = (serviceName = '') => {
@@ -95,8 +107,13 @@ export default function App() {
       <AdminDashboard
         onExitAdmin={() => {
           setCurrentView('public');
-          window.location.hash = '';
-          fetchData(); // Refresh data on exit
+          if (window.location.pathname.toLowerCase().startsWith('/admin')) {
+            window.history.pushState({}, '', '/');
+          }
+          if (window.location.hash.startsWith('#admin')) {
+            window.history.pushState({}, '', window.location.pathname || '/');
+          }
+          fetchData();
         }}
       />
     );
@@ -106,10 +123,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans selection:bg-brand-green-500 selection:text-white relative overflow-x-hidden">
       {/* Premium Floating Header */}
-      <Navbar
-        onOpenBooking={() => handleOpenBooking()}
-        onOpenAdmin={() => setCurrentView('admin')}
-      />
+      <Navbar onOpenBooking={() => handleOpenBooking()} />
 
       {/* Main Content */}
       <main className="flex-1">
@@ -181,17 +195,7 @@ export default function App() {
         defaultService={selectedServiceForBooking}
       />
 
-      {/* Subtle Floating Admin Portal Pill (Bottom Right) */}
-      <div className="fixed bottom-5 right-5 z-40 hidden sm:block">
-        <button
-          onClick={() => setCurrentView('admin')}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900/90 hover:bg-slate-900 text-white text-xs font-semibold shadow-xl border border-slate-700/80 backdrop-blur-md transition-all duration-200 hover:scale-105 group"
-        >
-          <div className="w-2 h-2 rounded-full bg-brand-green-400 group-hover:animate-ping" />
-          <Shield className="w-3.5 h-3.5 text-slate-300" />
-          <span>Admin CMS</span>
-        </button>
-      </div>
+
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Menu, X, Shield, ChevronRight, Sparkles } from 'lucide-react';
+import { Phone, Menu, X, ChevronRight, Sparkles } from 'lucide-react';
 
-export default function Navbar({ onOpenBooking, onOpenAdmin }) {
+export default function Navbar({ onOpenBooking }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -91,14 +91,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin }) {
               Book Services
             </button>
 
-            {/* Admin Portal shortcut (Desktop) */}
-            <button
-              onClick={onOpenAdmin}
-              title="Admin CMS Portal"
-              className="hidden sm:flex p-2 rounded-full text-slate-400 hover:text-brand-green-500 hover:bg-slate-100 transition-colors"
-            >
-              <Shield className="w-4 h-4" />
-            </button>
+
 
             {/* Mobile Hamburger */}
             <button
@@ -151,16 +144,7 @@ export default function Navbar({ onOpenBooking, onOpenAdmin }) {
               >
                 Book Services
               </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAdmin();
-                }}
-                className="w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 font-medium text-xs hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <Shield className="w-3.5 h-3.5 text-slate-500" />
-                Admin CMS Dashboard
-              </button>
+
             </div>
           </div>
         </div>
