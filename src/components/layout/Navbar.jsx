@@ -34,27 +34,27 @@ export default function Navbar({ onOpenBooking, onOpenAdmin }) {
               : 'bg-white/90 backdrop-blur-sm shadow-md border border-slate-200/60'
           }`}
         >
-          {/* Brand Logo */}
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden shadow-sm border border-slate-200 transition-transform group-hover:scale-105 duration-200">
+          {/* Brand Logo & Company Title */}
+          <a href="#" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden shadow-sm border border-slate-200 transition-transform group-hover:scale-105 duration-200 shrink-0">
               <img
                 src="/logo.jpg"
-                alt="Jeff Air Condition & Refrigeration"
+                alt="Jeff Air-condition and Refrigeration Maintenance Services"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-slate-900 tracking-tight text-base md:text-lg leading-tight flex items-center gap-1">
-                JEFF <span className="text-brand-green-500 font-bold">HVAC</span>
+            <div className="flex flex-col justify-center leading-none">
+              <span className="font-extrabold text-slate-900 tracking-tight text-xs sm:text-sm md:text-[15px] leading-tight">
+                <span className="text-brand-green-600 font-black">Jeff</span> Air-condition and Refrigeration
               </span>
-              <span className="text-[10px] tracking-wider uppercase font-semibold text-slate-400 hidden sm:block">
-                Air Condition & Ref
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-wider uppercase font-bold text-slate-500 mt-0.5">
+                Maintenance Services
               </span>
             </div>
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-slate-600">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-medium text-slate-600">
             {navLinks.map((link) => (
               <a
                 key={link.label}

@@ -78,7 +78,7 @@ export default function BookingModal({ isOpen, onClose, services = [], defaultSe
               Appointment Requested!
             </h3>
             <p className="text-slate-500 text-sm mb-6 max-w-sm mx-auto">
-              We received your service booking. A Jeff HVAC dispatch specialist will call you shortly to confirm the scheduled technician arrival time.
+              We received your service booking. A Jeff Air-condition and Refrigeration Maintenance Services dispatch specialist will call you shortly to confirm the scheduled technician arrival time.
             </p>
             <button
               onClick={() => {
@@ -99,7 +99,7 @@ export default function BookingModal({ isOpen, onClose, services = [], defaultSe
               </span>
             </div>
             <h3 className="text-2xl font-extrabold text-slate-900 mb-6">
-              Book HVAC Service
+              Book Air-condition & Ref Service
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">

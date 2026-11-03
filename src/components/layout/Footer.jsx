@@ -22,11 +22,11 @@ export default function Footer({ onBookSchedule }) {
                   />
                 </div>
                 <div>
-                  <span className="font-extrabold text-xl tracking-tight text-white block">
-                    JEFF <span className="text-brand-green-500">HVAC</span>
+                  <span className="font-extrabold text-base sm:text-lg tracking-tight text-white block">
+                    Jeff <span className="text-brand-green-400">Air-condition</span> and Refrigeration
                   </span>
-                  <span className="text-[10px] uppercase font-semibold text-slate-400 tracking-wider">
-                    Air Condition & Refrigeration
+                  <span className="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">
+                    Maintenance Services
                   </span>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function Footer({ onBookSchedule }) {
 
         {/* Bottom Credits & Back To Top */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-800/60 gap-4">
-          <p>© {new Date().getFullYear()} Jeff Air Condition & Refrigeration. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Jeff Air-condition and Refrigeration Maintenance Services. All Rights Reserved.</p>
           <div className="flex items-center gap-6">
             <span>Maintenance Service & Dealer</span>
             <button

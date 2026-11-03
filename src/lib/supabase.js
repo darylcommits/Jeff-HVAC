@@ -18,7 +18,7 @@ export const supabase = isSupabaseConfigured
 const INITIAL_DATA = {
   settings: {
     id: 'main',
-    company_name: 'Jeff Air Condition & Refrigeration',
+    company_name: 'Jeff Air-condition and Refrigeration Maintenance Services',
     tagline: 'Maintenance Service and Dealer',
     phone: '0977 699 1662 / 0915 971 7470',
     email: 'service@jeffhvac.com',
