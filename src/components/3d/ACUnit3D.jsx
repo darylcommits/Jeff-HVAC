@@ -225,7 +225,7 @@ function ACUnitFallback() {
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-brand-green-500 shadow-sm shadow-brand-green-500/50 animate-pulse" />
             <span className="text-[10px] sm:text-xs font-black tracking-wider sm:tracking-widest text-slate-800 uppercase font-sans">
-              JEFF <span className="text-brand-green-600 font-bold">INVERTER</span>
+              <span className="text-brand-green-500 font-black">JE</span><span className="text-brand-red-500 font-black">FF</span> <span className="text-brand-green-600 font-bold">INVERTER</span>
             </span>
           </div>
 

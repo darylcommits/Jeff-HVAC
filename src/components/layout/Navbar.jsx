@@ -45,7 +45,10 @@ export default function Navbar({ onOpenBooking, onOpenAdmin }) {
             </div>
             <div className="flex flex-col justify-center leading-none">
               <span className="font-extrabold text-slate-900 tracking-tight text-xs sm:text-sm md:text-[15px] leading-tight">
-                <span className="text-brand-green-600 font-black">Jeff</span> Air-condition and Refrigeration
+                <span className="font-black tracking-tight inline-block mr-1">
+                  <span className="text-brand-green-500">JE</span>
+                  <span className="text-brand-red-500">FF</span>
+                </span> Air-condition and Refrigeration
               </span>
               <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-wider uppercase font-bold text-slate-500 mt-0.5">
                 Maintenance Services

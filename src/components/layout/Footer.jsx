@@ -23,7 +23,11 @@ export default function Footer({ onBookSchedule }) {
                 </div>
                 <div>
                   <span className="font-extrabold text-base sm:text-lg tracking-tight text-white block">
-                    Jeff <span className="text-brand-green-400">Air-condition</span> and Refrigeration
+                    <span className="font-black inline-block tracking-tight mr-1">
+                      <span className="text-brand-green-500">JE</span>
+                      <span className="text-brand-red-500">FF</span>
+                    </span>{' '}
+                    Air-condition and Refrigeration
                   </span>
                   <span className="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">
                     Maintenance Services
@@ -173,7 +177,8 @@ export default function Footer({ onBookSchedule }) {
         {/* GIANT WATERMARK BRAND TYPOGRAPHY (Exact match to VENTRO in frame 33 & 35) */}
         <div className="relative py-12 md:py-16 text-center overflow-hidden">
           <span className="text-[18vw] font-black tracking-widest text-slate-800/30 select-none block leading-none font-sans pointer-events-none uppercase">
-            JEFF
+            <span className="text-brand-green-500/20">JE</span>
+            <span className="text-brand-red-500/20">FF</span>
           </span>
         </div>
 

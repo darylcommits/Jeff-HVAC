@@ -125,7 +125,7 @@ export default function InteractiveACUnit() {
               />
               <div className="flex flex-col">
                 <span className="text-[11px] sm:text-xs font-black tracking-widest text-slate-800 uppercase font-sans">
-                  JEFF <span className="text-brand-green-600 font-bold">INVERTER PRO</span>
+                  <span className="text-brand-green-500 font-black">JE</span><span className="text-brand-red-500 font-black">FF</span> <span className="text-brand-green-600 font-bold">INVERTER PRO</span>
                 </span>
                 <span className="text-[9px] uppercase font-bold text-slate-400 hidden sm:block">
                   Dual Climate Inverter

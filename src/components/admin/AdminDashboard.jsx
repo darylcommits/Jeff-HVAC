@@ -202,7 +202,7 @@ export default function AdminDashboard({ onExitAdmin }) {
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-brand-green-500 mx-auto mb-3 shadow-lg">
               <img src="/logo.jpg" alt="Jeff HVAC" className="w-full h-full object-cover" />
             </div>
-            <h2 className="text-xl font-extrabold text-white leading-snug">Jeff Air-condition and Refrigeration Maintenance Services</h2>
+            <h2 className="text-xl font-extrabold text-white leading-snug"><span className="text-brand-green-400 font-black">JE</span><span className="text-brand-red-500 font-black">FF</span> Air-condition and Refrigeration Maintenance Services</h2>
             <p className="text-xs text-brand-green-400 font-semibold uppercase tracking-wider mt-1">Admin Content Management System</p>
             <p className="text-xs text-slate-400 mt-1">
               {isSupabaseConfigured
@@ -301,7 +301,7 @@ export default function AdminDashboard({ onExitAdmin }) {
             </div>
             <div className="min-w-0">
               <h1 className="font-extrabold text-xs tracking-tight text-white leading-tight">
-                Jeff Air-condition & Ref
+                <span className="text-brand-green-400 font-black">JE</span><span className="text-brand-red-500 font-black">FF</span> Air-condition & Ref
               </h1>
               <span className="text-[9.5px] text-emerald-400 uppercase font-semibold block">Maintenance Services CMS</span>
             </div>
