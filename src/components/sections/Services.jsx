@@ -33,7 +33,7 @@ export default function Services({ services = [], onBookService }) {
           </div>
           <div className="max-w-md">
             <p className="text-sm sm:text-base text-slate-500 font-normal leading-relaxed">
-              Authorized service center providing brand-new AC sales, deep cleaning, Freon charging, re-installation, and washing machine repair with 1-Year Labor Warranty.
+              Authorized dealer and service center providing brand-new AC units with Free Delivery & Installation, ocular visit / survey, 1-3 years PCB board warranty on selected brands, parts replacement, Freon charging, and unit pull-out overhaul.
             </p>
           </div>
         </div>

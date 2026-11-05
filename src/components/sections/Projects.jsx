@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, User, CheckCircle2, ChevronRight, X, ArrowUpRight } from 'lucide-react';
+import { Clock, User, CheckCircle2, ChevronRight, X, ArrowUpRight, MapPin } from 'lucide-react';
 
 export default function Projects({ projects = [], onConsultation }) {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -52,16 +52,23 @@ export default function Projects({ projects = [], onConsultation }) {
                     {project.title}
                   </h3>
 
-                  {/* Badges: Strictly NO PRICES, as required */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-brand-green-50 text-brand-green-700 border border-brand-green-200">
+                  {/* Badges: Location, Duration, Client */}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {project.location && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold bg-brand-green-50 text-brand-green-700 border border-brand-green-200">
+                        <MapPin className="w-3 h-3 text-brand-green-600 shrink-0" />
+                        <span>{project.location}</span>
+                      </span>
+                    )}
+
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
                       <Clock className="w-3 h-3" />
-                      <span>Time: {project.duration}</span>
+                      <span>{project.duration}</span>
                     </span>
 
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
                       <User className="w-3 h-3" />
-                      <span>Client: {project.client_name}</span>
+                      <span>{project.client_name}</span>
                     </span>
 
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 ml-auto">
@@ -119,16 +126,23 @@ export default function Projects({ projects = [], onConsultation }) {
               </div>
 
               <div className="p-6 sm:p-8">
-                <div className="flex items-center gap-4 mb-4 pb-4 border-b border-slate-100 text-xs sm:text-sm text-slate-600">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 pb-4 border-b border-slate-100 text-xs sm:text-sm text-slate-600">
                   <div>
                     <span className="text-slate-400 block text-[10px] uppercase font-bold">Client</span>
                     <span className="font-semibold text-slate-800">{selectedProject.client_name}</span>
                   </div>
-                  <div className="border-l border-slate-200 pl-4">
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Location</span>
+                    <span className="font-semibold text-slate-800 flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-brand-green-600 shrink-0" />
+                      <span>{selectedProject.location || 'Pangasinan'}</span>
+                    </span>
+                  </div>
+                  <div>
                     <span className="text-slate-400 block text-[10px] uppercase font-bold">Turnaround</span>
                     <span className="font-semibold text-slate-800">{selectedProject.duration}</span>
                   </div>
-                  <div className="border-l border-slate-200 pl-4">
+                  <div>
                     <span className="text-slate-400 block text-[10px] uppercase font-bold">Category</span>
                     <span className="font-semibold text-brand-green-600">{selectedProject.category}</span>
                   </div>

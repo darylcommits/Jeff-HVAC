@@ -72,15 +72,16 @@ export default function Navbar({ onOpenBooking }) {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-3">
-            {/* Phone link */}
+            {/* Phone link - Gian's Number as requested */}
             <a
-              href="tel:09776991662"
+              href="tel:09243750879"
               className="hidden sm:flex items-center gap-2 text-xs md:text-sm font-semibold text-slate-700 hover:text-brand-green-500 transition-colors px-3 py-1.5 rounded-full hover:bg-slate-100"
+              title="Call Gian (Operations)"
             >
               <div className="w-7 h-7 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-500">
                 <Phone className="w-3.5 h-3.5" />
               </div>
-              <span>0977 699 1662</span>
+              <span className="font-bold">0924 375 0879</span>
             </a>
 
             {/* Book Services CTA (styled as shown in reference) */}
@@ -112,11 +113,11 @@ export default function Navbar({ onOpenBooking }) {
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <span className="font-bold text-slate-800">Quick Menu</span>
               <a
-                href="tel:09776991662"
-                className="flex items-center gap-1.5 text-xs font-semibold text-brand-green-500"
+                href="tel:09243750879"
+                className="flex items-center gap-1.5 text-xs font-bold text-brand-green-500"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call Hotline</span>
+                <span>0924 375 0879 (Gian)</span>
               </a>
             </div>
 

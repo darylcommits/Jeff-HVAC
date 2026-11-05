@@ -20,28 +20,39 @@ const INITIAL_DATA = {
     id: 'main',
     company_name: 'Jeff Air-condition and Refrigeration Maintenance Services',
     tagline: 'Maintenance Service and Dealer',
-    phone: '0977 699 1662 / 0915 971 7470',
-    email: 'service@jeffhvac.com',
+    phone: '0924 375 0879 / 0977 699 1662',
+    email: 'riverajeffrrey421@gmail.com',
     address: 'San Bartolome, Rosales, Pangasinan / Apalit, Pampanga',
-    hours: 'Mon - Sun: 8:00 AM - 7:00 PM / Emergency 24/7',
+    hours: 'Mon - Sun: 8:00 AM - 5:00 PM / Emergency 24/7',
     branches: [
       {
         name: 'Pangasinan Branch',
         address: 'San Bartolome, Rosales, Pangasinan',
-        hotlines: ['0977 699 1662', '0949 569 0281'],
+        hotlines: ['0924 375 0879', '0977 699 1662', '0927 045 1215', '0949 569 0281', '0914 375 607'],
+        staff: [
+          { name: 'Jeff "CEO"', phone: '0977 699 1662', role: 'CEO / General Manager' },
+          { name: 'Gian', phone: '0924 375 0879', role: 'Main Operations Hotline (Nav)' },
+          { name: 'MJ', phone: '0927 045 1215', role: 'Service Coordinator' },
+          { name: 'Kristle', phone: '0949 569 0281', role: 'Customer Support' },
+          { name: 'Ailyn', phone: '0914 375 607', role: 'Dispatch Support' },
+        ],
         facebook: 'https://facebook.com/jeffairconpangasinan'
       },
       {
         name: 'Apalit Branch',
         address: 'Apalit, Pampanga',
         hotlines: ['0915 971 7470', '0969 223 5507'],
+        staff: [
+          { name: 'Apalit Dispatch Desk', phone: '0915 971 7470', role: 'Branch Hotline' },
+          { name: 'Pampanga Field Dispatch', phone: '0969 223 5507', role: 'Field Operations' }
+        ],
         facebook: 'https://facebook.com/jeffairconapalit'
       }
     ],
     warranties: [
       { title: '1 Year Warranty', desc: 'Maintenance and Labor Guarantee' },
-      { title: '10 Years Warranty', desc: 'On Selected Aircon Brands' },
-      { title: '5 Years Warranty', desc: 'On Other Recognized Brands' }
+      { title: '1-3 Years Warranty', desc: 'On PCB or Board of Unit (Selected Brands)' },
+      { title: 'Up to 10 Years Warranty', desc: 'On Compressor (Selected Aircon Brands)' }
     ],
     payment_methods: [
       { name: 'Cash on Delivery (COD)', code: 'COD' },
@@ -61,11 +72,11 @@ const INITIAL_DATA = {
       id: 'srv-1',
       title: 'Brand-New AC Units & Expert Installation',
       slug: 'brand-new-ac-installation',
-      short_description: 'Free Installation and Delivery on brand-new Split Type, Window Type, 2-Way & 4-Way Cassette units.',
-      full_description: 'Authorized dealer supply of 100% authentic brand-new air conditioning units. Includes complimentary professional delivery, mounting, electrical piping, and vacuum testing with manufacturer warranties.',
+      short_description: 'Free Installation & Delivery on brand-new Split Type, Window Type, 2-Way & 4-Way Cassette units with complimentary Ocular Visit or Survey.',
+      full_description: 'Authorized dealer supply of 100% authentic brand-new air conditioning units from top brands (Fujidenzo, Whirlpool, Maytag, Tecnogas, CHiQ, Daikin, Midea, Kolin, Carrier, and more). Includes FREE Delivery & Expert Installation, complimentary Ocular Visit or Survey before installation, plus 1 to 3 Years Warranty on PCB or board of unit for selected brands and up to 10 years compressor warranty.',
       icon_name: 'Wind',
       image_url: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80',
-      features: ['Free Delivery & Installation', 'Window, Split & Cassette Types', 'Official Manufacturer Warranty', 'Certified Dealer Units'],
+      features: ['FREE Delivery & Expert Installation', 'Complimentary Ocular Visit or Survey', '1-3 Years Warranty on PCB / Board (Selected Brands)', 'Split, Window, 2-Way & 4-Way Cassette Units'],
       is_published: true,
       display_order: 1
     },
@@ -73,11 +84,11 @@ const INITIAL_DATA = {
       id: 'srv-2',
       title: 'AC Installation',
       slug: 'ac-installation',
-      short_description: 'Expert residential and commercial AC mounting, piping connection, and electrical safety wiring.',
-      full_description: 'Professional setup of split systems, multi-split inverters, window units, and ceiling cassettes compliant with all manufacturer warranty standards.',
+      short_description: 'Expert residential and commercial AC mounting, piping, and wiring. Pwedeng may sariling unit na kayo o bibili pa lang sa amin.',
+      full_description: 'Professional setup of split systems, multi-split inverters, window units, and ceiling cassettes compliant with all manufacturer warranty standards. Available whether you already have a purchased unit ("May unit na") or need to purchase one from Jeff HVAC ("Wala pa / Bibili pa").',
       icon_name: 'Wrench',
       image_url: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80',
-      features: ['Heavy-Duty Bracket Anchoring', 'Copper Tubing Flare Connection', 'Circuit Breaker Load Verification', 'Vibration Damping'],
+      features: ['Option: May Unit Na o Wala Pa', 'Heavy-Duty Bracket Anchoring', 'Copper Tubing Flare Connection', 'Deep Micron Vacuum & Pressure Test'],
       is_published: true,
       display_order: 2
     },
@@ -193,13 +204,25 @@ const INITIAL_DATA = {
       id: 'srv-12',
       title: 'Unit Pull Out of AC or Ref',
       slug: 'unit-pull-out-ac-or-ref',
-      short_description: 'Safe on-site uninstallation, secure vehicle transport, comprehensive workshop overhaul, and guaranteed re-installation.',
-      full_description: 'Specialized unit pull-out service for air conditioners and refrigerators requiring intensive workshop repairs, internal evaporator leak braze welding, sealed system chemical flush, or major compressor overhaul. Includes safe refrigerant pump-down, transport, and complete re-installation.',
+      short_description: 'Safe on-site uninstallation, secure vehicle transport, comprehensive workshop overhaul, and guaranteed re-installation with brand and age assessment.',
+      full_description: 'Specialized unit pull-out service for air conditioners and refrigerators requiring intensive workshop repairs, internal evaporator leak braze welding, sealed system chemical flush, or major compressor overhaul. Simply specify the brand of unit, how many years in service, and attach a picture of the unit for accurate technician assessment.',
       icon_name: 'Truck',
       image_url: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1200&q=80',
-      features: ['Safe Refrigerant Pump-Down', 'Insured Equipment Transport', 'Full Workshop Pressure & Bench Test', 'Precision Re-installation & Vacuum Testing'],
+      features: ['Safe Refrigerant Pump-Down', 'Unit Brand & Age Diagnostics', 'Photo Attachment Assessment', 'Workshop Overhaul & Re-installation'],
       is_published: true,
       display_order: 12
+    },
+    {
+      id: 'srv-13',
+      title: 'Parts Replacement',
+      slug: 'parts-replacement',
+      short_description: 'Genuine OEM replacement for PCB inverter control boards, fan motors, run capacitors, compressors, and thermostat sensors with 1-3 years warranty on PCB.',
+      full_description: 'Authorized sourcing and precision replacement of genuine OEM inverter boards, main PCB assemblies, evaporator blower motors, condenser fans, starting capacitors, and magnetic contactors. Guaranteed authentic parts with 1 to 3 years warranty on PCB or board of unit for selected brands.',
+      icon_name: 'Cpu',
+      image_url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+      features: ['1-3 Years Warranty on PCB Board (Selected Brands)', '100% Genuine OEM Replacement Parts', 'Inverter Control Board Troubleshooting', 'Safe High-Voltage Calibration'],
+      is_published: true,
+      display_order: 13
     }
   ],
   projects: [
@@ -208,6 +231,7 @@ const INITIAL_DATA = {
       title: 'Quick AC Fix & Evaporator Rebuild',
       slug: 'quick-ac-fix',
       client_name: 'Liana Carter',
+      location: 'Rosales, Pangasinan',
       duration: '4 Days',
       category: 'Residential Split System',
       description: 'Complete evaporator coil restoration, micro-channel leak welding, and smart inverter calibration for a modern high-floor apartment.',
@@ -221,6 +245,7 @@ const INITIAL_DATA = {
       title: 'High-Rise Multi-Zone VRF System',
       slug: 'high-rise-vrf',
       client_name: 'Sterling Residences',
+      location: 'Dagupan City, Pangasinan',
       duration: '6 Days',
       category: 'Commercial Luxury',
       description: 'Installation of 8-zone concealed ceiling ducted VRF cooling with individual digital climate zoning and ultra-silent operation.',
@@ -234,6 +259,7 @@ const INITIAL_DATA = {
       title: 'Commercial Cold Room & Chiller System',
       slug: 'commercial-cold-room',
       client_name: 'Metro Gourmet Market',
+      location: 'Urdaneta City, Pangasinan',
       duration: '5 Days',
       category: 'Refrigeration Engineering',
       description: 'Engineered dual-compressor redundant walk-in cold room maintaining precision -18°C cold storage with real-time temperature alerts.',
@@ -241,37 +267,61 @@ const INITIAL_DATA = {
       scope_details: ['Dual Condenser Backup', 'IoT Cellular Temp Monitor', 'Food-Grade Stainless Ducting', 'Zero Downtime Commissioning'],
       is_published: true,
       display_order: 3
+    },
+    {
+      id: 'prj-4',
+      title: '4-Way Cassette Inverter Multi-Installation',
+      slug: 'cassette-inverter-installation',
+      client_name: 'Golden Crest Plaza',
+      location: 'Apalit, Pampanga',
+      duration: '3 Days',
+      category: 'Commercial Air Conditioning',
+      description: 'Full commercial installation of five 4-way cassette inverter units with complimentary ocular survey, customized drainage lines, and high-efficiency refrigerant charge.',
+      thumbnail_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+      scope_details: ['Ocular Survey & Airflow Analysis', 'Ceiling Suspension Brackets', '1-3 Yrs PCB Warranty Included', 'Complete Vacuum Commissioning'],
+      is_published: true,
+      display_order: 4
     }
   ],
   testimonials: [
     {
       id: 'test-1',
-      client_name: 'Marcus Sterling',
-      client_role: 'Facility Director',
-      company_name: 'Apex Tower Corp',
+      client_name: 'Rowena Mendoza',
+      client_role: 'Homeowner, Rosales',
+      company_name: 'San Bartolome Residence',
       rating: 5,
-      comment: 'Jeff Air Condition transformed our entire building cooling system. Prompt dispatch, crystal-clear communication, and our energy bills dropped by 34% within two months.',
-      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+      comment: 'Sobrang bilis ng responde nila Jeff! Nung nasira yung inverter split type namin tanghaling tapat, within 1 hour dumating agad sila Gian at MJ. Malamig na ulit ang kwarto at napakalinis nilang gumawa, walang kalat.',
+      avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
       is_published: true
     },
     {
       id: 'test-2',
-      client_name: 'Elena Rostova',
-      client_role: 'Residential Property Owner',
-      company_name: 'Private Villa',
+      client_name: 'Engr. Danilo Soriano',
+      client_role: 'Business Owner, Dagupan City',
+      company_name: 'Soriano Cold Storage & Meats',
       rating: 5,
-      comment: 'The technicians arrived right on time in pristine uniforms. They diagnosed a tricky refrigerant issue that two previous companies failed to spot. Truly top tier!',
-      avatar_url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80',
+      comment: 'Nagpa-unit pull out kami ng commercial chiller at inverter ref para sa system reprocessing. Akala ko aabutin ng weeks, pero in 3 days naibalik agad na parang bago. Transparent din sa pinalitang pyesa at may warranty pa sa board!',
+      avatar_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
       is_published: true
     },
     {
       id: 'test-3',
-      client_name: 'David Chen',
-      client_role: 'Operations Manager',
-      company_name: 'Bistro Nouveau',
+      client_name: 'Karmela Dizon',
+      client_role: 'Restaurant Manager, Urdaneta',
+      company_name: 'Cafe Kusina Urdaneta',
       rating: 5,
-      comment: 'When our commercial walk-in cooler went down right before a busy weekend, Jeff HVAC responded in under 45 minutes and saved tens of thousands in stock.',
-      avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+      comment: 'Dito kami bumili ng brand-new Daikin inverter ACs para sa cafe. Legit yung FREE delivery and installation, at nag-ocular survey muna bago ikabit! Plus may 1-3 years warranty pa sa PCB board. Super recommended!',
+      avatar_url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80',
+      is_published: true
+    },
+    {
+      id: 'test-4',
+      client_name: 'Ramon Gutierrez',
+      client_role: 'Apartment Owner, Apalit',
+      company_name: 'Gutierrez Apartments',
+      rating: 5,
+      comment: 'Yung washing machine namin na ayaw mag-spin at maingay, naayos nila on the spot yung motherboard at motor. Napakabait ni Kristle sa customer support at magalang lahat ng technicians.',
+      avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80',
       is_published: true
     }
   ],
@@ -280,86 +330,120 @@ const INITIAL_DATA = {
       id: 'blg-1',
       title: 'Quick and Reliable AC Repair Technicians: What to Expect',
       slug: 'quick-and-reliable-ac-repair',
-      excerpt: 'Air conditioning maintenance checklist that helps keep your AC running at peak efficiency all summer long.',
-      content: 'Modern air conditioning systems require sophisticated micro-calibrations. Regular preventative maintenance reduces wear on the compressor, keeps coils free of heat-trapping debris, and protects indoor air purity.',
+      date: 'Nov 02, 2026',
+      excerpt: 'Air conditioning maintenance checklist that helps keep your AC running ice-cold all summer long with lower electricity consumption.',
+      content: 'Modern inverter air conditioning systems require sophisticated micro-calibrations. Regular preventative maintenance reduces wear on the compressor, keeps coils free of heat-trapping debris, and protects indoor air purity.',
       read_time: '3 Min Read',
       featured_image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80',
-      author_name: 'Jeff Martinez',
+      author_name: 'Jeff Rivera (CEO)',
       category: 'Maintenance',
       is_published: true,
-      published_at: new Date().toISOString()
+      published_at: '2026-11-02T08:00:00.000Z'
     },
     {
       id: 'blg-2',
       title: 'Deep Air Conditioner Cleaning Service & Health Benefits',
       slug: 'deep-air-conditioner-cleaning',
+      date: 'Oct 24, 2026',
       excerpt: 'Scheduled servicing, priority support, and performance checks to prevent mold spores and maximize airflow velocity.',
       content: 'When indoor moisture gathers inside your fan blower wheel and drip tray, biological buildup can quickly spread throughout living spaces. Professional chemical wash and steam sanitization restore pristine airflow.',
       read_time: '4 Min Read',
       featured_image: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80',
-      author_name: 'Matthew Lewis',
+      author_name: 'Gian Rivera',
       category: 'Air Quality',
       is_published: true,
-      published_at: new Date().toISOString()
+      published_at: '2026-10-24T09:30:00.000Z'
+    },
+    {
+      id: 'blg-3',
+      title: 'Why Genuine PCB Board Replacement Matters for Inverter Air Conditioners',
+      slug: 'genuine-pcb-board-replacement',
+      date: 'Oct 15, 2026',
+      excerpt: 'Protect your inverter compressor with authentic OEM PCB replacement parts backed by 1 to 3 years warranty.',
+      content: 'Inverter air conditioners rely heavily on high-precision Power Control Boards (PCB) to govern DC inverter compressor frequencies. Using imitation or uncalibrated circuit boards leads to frequent error codes and compressor burnout. Jeff HVAC provides genuine OEM PCB replacements with 1-3 years warranty on selected brands.',
+      read_time: '5 Min Read',
+      featured_image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+      author_name: 'Jeff Rivera (CEO)',
+      category: 'Parts & Electronics',
+      is_published: true,
+      published_at: '2026-10-15T10:15:00.000Z'
     }
   ],
   faqs: [
     {
       id: 'faq-1',
       question: 'How often should I service my residential or commercial AC?',
-      answer: 'We recommend comprehensive maintenance twice a year—spring for cooling and autumn for heating/refrigeration. High-traffic commercial systems benefit from quarterly inspections.',
+      answer: 'We recommend comprehensive cleaning and check-up twice a year for residential units, and quarterly for commercial units. Regular cleaning keeps your air clean and reduces electricity bills by up to 30%.',
       category: 'Maintenance',
       is_published: true
     },
     {
       id: 'faq-2',
-      question: 'What are the warning signs that my AC unit needs urgent inspection?',
-      answer: 'Unusual rattling or buzzing sounds, weak airflow, warm air blowing in cool mode, ice forming on the condenser pipes, or sudden spikes in your monthly electricity usage.',
-      category: 'Diagnostics',
+      question: 'Ano po ang coverage ng Free Installation at Delivery?',
+      answer: 'Lahat ng brand-new air conditioning units na bibilhin sa Jeff HVAC (Split Type, Window Type, 2-Way & 4-Way Cassette) ay may kasamang FREE standard installation, delivery sa inyong bahay o business, at complimentary Ocular Visit or Site Survey.',
+      category: 'Warranty & Sales',
       is_published: true
     },
     {
       id: 'faq-3',
-      question: 'Do you offer emergency response for commercial refrigeration?',
-      answer: 'Yes, our certified rapid-response team provides round-the-clock emergency diagnostics and repair for restaurants, cold storage facilities, and healthcare facilities.',
-      category: 'Emergency',
+      question: 'May warranty po ba ang PCB o motherboard ng inverter unit?',
+      answer: 'Opo! Nagbibigay ang Jeff HVAC ng 1 hanggang 3 Taong Warranty sa PCB o board ng unit para sa mga piling authorized brands, bukod pa sa 1 Taong labor warranty at hanggang 10 taong compressor warranty.',
+      category: 'Warranty & Sales',
       is_published: true
     },
     {
       id: 'faq-4',
-      question: 'Are your technicians certified and insured?',
-      answer: 'All Jeff Air Condition & Refrigeration technicians hold EPA universal certifications, factory manufacturer credentials, and comprehensive liability insurance.',
-      category: 'Company',
+      question: 'Ano ang gagawin kapag kailangan ng Unit Pull Out ng AC o Ref?',
+      answer: 'Madali lang po! I-fill out ang aming booking form kasama ang brand ng inyong unit, ilang years na ito ginagamit, at mag-attach ng picture ng unit. Susuriin ito ng aming dispatch bago ang maingat na pull-out para sa workshop overhaul.',
+      category: 'Services',
       is_published: true
     }
   ],
   inquiries: [
     {
       id: 'inq-1',
-      full_name: 'Sarah Jenkins',
-      email: 'sarah.j@example.com',
-      phone: '+1 (212) 555-0199',
-      service_requested: 'Climate Fix',
-      message: 'Need urgent diagnosis on our rooftop inverter unit before summer heatwaves.',
+      full_name: 'Elena Dela Cruz',
+      email: 'elena.delacruz@example.com',
+      phone: '0917 889 1234',
+      address: 'Brgy. Carmen, Rosales, Pangasinan',
+      landmark: 'Near Carmen Elementary School, green gate',
+      preferred_date: '2026-11-06',
+      preferred_time: '8:00 AM - 10:00 AM',
+      service_requested: 'Brand-New AC Units & Expert Installation',
+      has_ocular_visit: true,
+      unit_status: 'Wala pa (Bibili pa sa Jeff HVAC)',
+      unit_brand: 'Daikin',
+      unit_years: '',
+      unit_image: '',
+      message: 'Need 1.5HP Inverter Split Type for master bedroom. Requesting ocular visit first to measure piping.',
       status: 'new',
-      created_at: new Date(Date.now() - 3600000 * 4).toISOString()
+      created_at: new Date(Date.now() - 3600000 * 2).toISOString()
     },
     {
       id: 'inq-2',
-      full_name: 'Robert Vance',
-      email: 'bob@vancerefrig.com',
-      phone: '+1 (347) 555-0812',
-      service_requested: 'Commercial Refrigeration',
-      message: 'Requesting a quote and technical site survey for three walk-in coolers.',
+      full_name: 'Mark Anthony Bautista',
+      email: 'mark.bautista@example.com',
+      phone: '0928 456 7890',
+      address: 'Poblacion, Urdaneta City, Pangasinan',
+      landmark: 'Beside Shell Station, 2nd Floor Commercial Bldg',
+      preferred_date: '2026-11-07',
+      preferred_time: '1:00 PM - 3:00 PM',
+      service_requested: 'Unit Pull Out of AC or Ref',
+      has_ocular_visit: false,
+      unit_status: 'May unit na',
+      unit_brand: 'Fujidenzo',
+      unit_years: '3 - 5 Years',
+      unit_image: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80',
+      message: 'Two-door inverter refrigerator not cooling properly, compressor clicks and stops. Need pull out and repair.',
       status: 'contacted',
-      created_at: new Date(Date.now() - 3600000 * 24).toISOString()
+      created_at: new Date(Date.now() - 3600000 * 18).toISOString()
     }
   ]
 };
 
 function getLocal(key, fallback) {
   try {
-    const item = localStorage.getItem(`jeff_hvac_v2_${key}`);
+    const item = localStorage.getItem(`jeff_hvac_v3_${key}`);
     return item ? JSON.parse(item) : fallback;
   } catch {
     return fallback;
@@ -368,7 +452,7 @@ function getLocal(key, fallback) {
 
 function setLocal(key, value) {
   try {
-    localStorage.setItem(`jeff_hvac_v2_${key}`, JSON.stringify(value));
+    localStorage.setItem(`jeff_hvac_v3_${key}`, JSON.stringify(value));
   } catch (e) {
     console.error('Local storage error', e);
   }
@@ -534,6 +618,16 @@ export const api = {
   },
 
   async saveTestimonial(testimonial) {
+    if (isSupabaseConfigured) {
+      try {
+        const { data, error } = await supabase.from('testimonials').upsert(testimonial).select();
+        if (!error && data) {
+          // Keep local sync
+        }
+      } catch (err) {
+        console.warn('Supabase testimonial upsert failed', err);
+      }
+    }
     const current = getLocal('testimonials', INITIAL_DATA.testimonials);
     let updated;
     if (testimonial.id) {
@@ -546,6 +640,13 @@ export const api = {
   },
 
   async deleteTestimonial(id) {
+    if (isSupabaseConfigured) {
+      try {
+        await supabase.from('testimonials').delete().eq('id', id);
+      } catch (err) {
+        console.warn('Supabase testimonial delete error', err);
+      }
+    }
     const current = getLocal('testimonials', INITIAL_DATA.testimonials).filter(t => t.id !== id);
     setLocal('testimonials', current);
     return true;
@@ -568,10 +669,28 @@ export const api = {
   },
 
   async getAllBlogsAdmin() {
+    if (isSupabaseConfigured) {
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+        if (!error && data) return data;
+      } catch (err) {
+        console.warn('Supabase admin blogs error', err);
+      }
+    }
     return getLocal('blog_posts', INITIAL_DATA.blog_posts);
   },
 
   async saveBlog(blog) {
+    if (isSupabaseConfigured) {
+      try {
+        await supabase.from('blog_posts').upsert(blog);
+      } catch (err) {
+        console.warn('Supabase blog save error', err);
+      }
+    }
     const current = getLocal('blog_posts', INITIAL_DATA.blog_posts);
     let updated;
     if (blog.id) {
@@ -584,6 +703,13 @@ export const api = {
   },
 
   async deleteBlog(id) {
+    if (isSupabaseConfigured) {
+      try {
+        await supabase.from('blog_posts').delete().eq('id', id);
+      } catch (err) {
+        console.warn('Supabase blog delete error', err);
+      }
+    }
     const current = getLocal('blog_posts', INITIAL_DATA.blog_posts).filter(b => b.id !== id);
     setLocal('blog_posts', current);
     return true;
@@ -663,6 +789,16 @@ export const api = {
   },
 
   async updateInquiryStatus(id, status) {
+    if (isSupabaseConfigured) {
+      try {
+        await supabase
+          .from('contact_inquiries')
+          .update({ status })
+          .eq('id', id);
+      } catch (err) {
+        console.warn('Supabase update inquiry error', err);
+      }
+    }
     const current = getLocal('inquiries', INITIAL_DATA.inquiries);
     const updated = current.map(i => i.id === id ? { ...i, status } : i);
     setLocal('inquiries', updated);
@@ -670,6 +806,16 @@ export const api = {
   },
 
   async deleteInquiry(id) {
+    if (isSupabaseConfigured) {
+      try {
+        await supabase
+          .from('contact_inquiries')
+          .delete()
+          .eq('id', id);
+      } catch (err) {
+        console.warn('Supabase delete inquiry error', err);
+      }
+    }
     const current = getLocal('inquiries', INITIAL_DATA.inquiries).filter(i => i.id !== id);
     setLocal('inquiries', current);
     return true;

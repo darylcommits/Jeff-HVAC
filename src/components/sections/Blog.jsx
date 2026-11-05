@@ -61,9 +61,15 @@ export default function Blog({ blogs = [] }) {
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
-                  <div className="flex items-center gap-1.5 text-slate-400 font-medium">
-                    <Clock className="w-3.5 h-3.5 text-brand-green-500" />
-                    <span>{post.read_time}</span>
+                  <div className="flex items-center gap-3 text-slate-400 font-medium">
+                    <span className="flex items-center gap-1.5 font-semibold text-slate-600">
+                      <Calendar className="w-3.5 h-3.5 text-brand-green-500" />
+                      <span>{post.date || (post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent')}</span>
+                    </span>
+                    <span className="flex items-center gap-1 text-slate-400">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{post.read_time}</span>
+                    </span>
                   </div>
 
                   <span className="font-bold text-brand-green-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
@@ -102,10 +108,15 @@ export default function Blog({ blogs = [] }) {
                 />
               </div>
 
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-3 font-medium">
+              <div className="flex items-center gap-3 text-xs text-slate-400 mb-3 font-medium flex-wrap">
                 <span className="px-2.5 py-1 rounded-full bg-brand-green-50 text-brand-green-700 font-semibold">
                   {selectedPost.category}
                 </span>
+                <span className="flex items-center gap-1 text-slate-600 font-semibold">
+                  <Calendar className="w-3.5 h-3.5 text-brand-green-500" />
+                  <span>{selectedPost.date || (selectedPost.published_at ? new Date(selectedPost.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent')}</span>
+                </span>
+                <span>•</span>
                 <span>By {selectedPost.author_name}</span>
                 <span>•</span>
                 <span>{selectedPost.read_time}</span>

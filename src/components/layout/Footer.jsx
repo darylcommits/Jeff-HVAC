@@ -166,10 +166,15 @@ export default function Footer({ onBookSchedule }) {
             </div>
 
             <div className="text-xs text-slate-400 space-y-2">
-              <p className="font-semibold text-white">Official Branches:</p>
-              <p>📍 <strong className="text-emerald-400">Pangasinan:</strong> San Bartolome, Rosales (0977 699 1662 / 0949 569 0281)</p>
+              <p className="font-semibold text-white">Official Branches & Hotlines:</p>
+              <p>📍 <strong className="text-emerald-400">Pangasinan:</strong> San Bartolome, Rosales</p>
+              <p className="text-[11px] text-slate-300">
+                Gian: 0924 375 0879 • Jeff "CEO": 0977 699 1662<br />
+                MJ: 0927 045 1215 • Kristle: 0949 569 0281 • Ailyn: 0914 375 607
+              </p>
               <p>📍 <strong className="text-emerald-400">Apalit:</strong> Apalit, Pampanga (0915 971 7470 / 0969 223 5507)</p>
-              <p className="text-[11px] text-slate-500 pt-1">Certified Authorized Service Center • 1-Year Labor Warranty</p>
+              <p>✉️ <strong className="text-emerald-400">Email:</strong> <a href="mailto:riverajeffrrey421@gmail.com" className="text-white hover:underline">riverajeffrrey421@gmail.com</a></p>
+              <p className="text-[11px] text-slate-500 pt-1">Certified Authorized Service Center • 1-3 Yrs PCB Warranty (Selected Brands)</p>
             </div>
           </div>
         </div>

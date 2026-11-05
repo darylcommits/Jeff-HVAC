@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
 import Hero from './components/sections/Hero';
+import AppliancePurchasesCarousel from './components/sections/AppliancePurchasesCarousel';
 import MarqueeTicker from './components/sections/MarqueeTicker';
 import BrandLogosMarquee from './components/common/BrandLogos';
 import AboutBento from './components/sections/AboutBento';
@@ -131,6 +132,11 @@ export default function App() {
         <Hero
           onGetStarted={() => handleOpenBooking()}
           onLearnMore={handleScrollToServices}
+        />
+
+        {/* Carousel of Purchased Appliances Below Home */}
+        <AppliancePurchasesCarousel
+          onInquireAppliance={(title) => handleOpenBooking(title)}
         />
 
         {/* Ticker / Marquee Banner */}
