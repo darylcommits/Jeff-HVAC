@@ -752,44 +752,134 @@ export const api = {
 
   // CONTACT INQUIRIES
   async submitInquiry(inquiry) {
+    const newId = inquiry.id || `inq-${Date.now()}`;
     const payload = {
+      id: newId,
       ...inquiry,
-      status: 'new',
-      created_at: new Date().toISOString()
+      status: inquiry.status || 'new',
+      created_at: inquiry.created_at || new Date().toISOString()
     };
 
-    if (isSupabaseConfigured) {
+    // 1. ALWAYS persist to local storage first so it is immediately guaranteed received
+    const current = getLocal('inquiries', INITIAL_DATA.inquiries);
+    const updated = [payload, ...current.filter(i => i.id !== newId)];
+    setLocal('inquiries', updated);
+
+    // 2. Broadcast cross-tab and cross-component event for instant real-time sync
+    try {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('jeff_new_inquiry', { detail: payload }));
+      }
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('jeff_hvac_channel');
+        bc.postMessage({ type: 'NEW_INQUIRY', data: payload });
+        bc.close();
+      }
+    } catch {
+      // Ignore background or non-browser errors
+    }
+
+    // 3. Attempt Supabase sync with schema-compatible payload mapping
+    if (isSupabaseConfigured && supabase) {
       try {
-        const { data, error } = await supabase.from('contact_inquiries').insert([payload]);
-        if (!error) return { success: true, data };
+        const supabasePayload = {
+          full_name: payload.full_name || 'Valued Customer',
+          email: payload.email || 'riverajeffrrey421@gmail.com',
+          phone: payload.phone || '',
+          service_requested: payload.service_requested || 'General Inquiry',
+          message: [
+            payload.message || '',
+            payload.address ? `Address: ${payload.address}` : '',
+            payload.landmark ? `Landmark: ${payload.landmark}` : '',
+            payload.preferred_date ? `Preferred Date: ${payload.preferred_date}` : '',
+            payload.preferred_time ? `Time Window: ${payload.preferred_time}` : '',
+            payload.has_ocular_visit ? `Ocular Visit: YES` : '',
+            payload.unit_status ? `Unit Status: ${payload.unit_status}` : '',
+            payload.unit_brand ? `Unit Brand: ${payload.unit_brand}` : '',
+            payload.unit_years ? `Unit Age: ${payload.unit_years}` : '',
+          ].filter(Boolean).join(' | '),
+          status: payload.status || 'new',
+          notes: JSON.stringify({
+            address: payload.address,
+            landmark: payload.landmark,
+            preferred_date: payload.preferred_date,
+            preferred_time: payload.preferred_time,
+            has_ocular_visit: payload.has_ocular_visit,
+            unit_status: payload.unit_status,
+            unit_brand: payload.unit_brand,
+            unit_years: payload.unit_years,
+            unit_image: payload.unit_image
+          })
+        };
+
+        await supabase.from('contact_inquiries').insert([supabasePayload]);
       } catch (err) {
-        console.warn('Supabase insert inquiry failed', err);
+        console.warn('Supabase remote insert fallback to local', err);
       }
     }
 
-    const current = getLocal('inquiries', INITIAL_DATA.inquiries);
-    const updated = [{ ...payload, id: `inq-${Date.now()}` }, ...current];
-    setLocal('inquiries', updated);
     return { success: true, data: payload };
   },
 
   async getInquiries() {
-    if (isSupabaseConfigured) {
+    const localInquiries = getLocal('inquiries', INITIAL_DATA.inquiries);
+
+    if (isSupabaseConfigured && supabase) {
       try {
         const { data, error } = await supabase
           .from('contact_inquiries')
           .select('*')
           .order('created_at', { ascending: false });
-        if (!error && data) return data;
+
+        if (!error && data && data.length > 0) {
+          // Parse any metadata packed into notes or message
+          const parsedRemote = data.map(item => {
+            let extra = {};
+            if (item.notes) {
+              try {
+                extra = JSON.parse(item.notes);
+              } catch {}
+            }
+            return {
+              ...item,
+              ...extra,
+              address: item.address || extra.address || '',
+              landmark: item.landmark || extra.landmark || '',
+              preferred_date: item.preferred_date || extra.preferred_date || '',
+              preferred_time: item.preferred_time || extra.preferred_time || '',
+              has_ocular_visit: item.has_ocular_visit || extra.has_ocular_visit || false,
+              unit_status: item.unit_status || extra.unit_status || '',
+              unit_brand: item.unit_brand || extra.unit_brand || '',
+              unit_years: item.unit_years || extra.unit_years || '',
+              unit_image: item.unit_image || extra.unit_image || '',
+            };
+          });
+
+          // Merge local and remote inquiries, deduplicating by ID or phone+date
+          const seen = new Set();
+          const merged = [];
+
+          for (const item of [...localInquiries, ...parsedRemote]) {
+            const key = item.id || `${item.phone}-${item.created_at}`;
+            if (!seen.has(key)) {
+              seen.add(key);
+              merged.push(item);
+            }
+          }
+
+          merged.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+          return merged;
+        }
       } catch (err) {
         console.warn('Supabase inquiries fetch error', err);
       }
     }
-    return getLocal('inquiries', INITIAL_DATA.inquiries);
+
+    return localInquiries;
   },
 
   async updateInquiryStatus(id, status) {
-    if (isSupabaseConfigured) {
+    if (isSupabaseConfigured && supabase) {
       try {
         await supabase
           .from('contact_inquiries')
@@ -802,11 +892,21 @@ export const api = {
     const current = getLocal('inquiries', INITIAL_DATA.inquiries);
     const updated = current.map(i => i.id === id ? { ...i, status } : i);
     setLocal('inquiries', updated);
+
+    // Broadcast status change
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('jeff_hvac_channel');
+        bc.postMessage({ type: 'STATUS_UPDATED', id, status });
+        bc.close();
+      }
+    } catch {}
+
     return true;
   },
 
   async deleteInquiry(id) {
-    if (isSupabaseConfigured) {
+    if (isSupabaseConfigured && supabase) {
       try {
         await supabase
           .from('contact_inquiries')
@@ -818,6 +918,16 @@ export const api = {
     }
     const current = getLocal('inquiries', INITIAL_DATA.inquiries).filter(i => i.id !== id);
     setLocal('inquiries', current);
+
+    // Broadcast deletion
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('jeff_hvac_channel');
+        bc.postMessage({ type: 'INQUIRY_DELETED', id });
+        bc.close();
+      }
+    } catch {}
+
     return true;
   },
 

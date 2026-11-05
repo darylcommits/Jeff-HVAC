@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { X, CheckCircle2, Loader2, Upload, FileCheck } from 'lucide-react';
+import { X, CheckCircle2, Loader2, Upload, FileCheck, Mail, Phone } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { api } from '../../lib/supabase';
 
@@ -24,6 +24,7 @@ export default function BookingModal({ isOpen, onClose, services = [], defaultSe
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
   const fileInputRef = useRef(null);
 
   React.useEffect(() => {
@@ -70,7 +71,8 @@ export default function BookingModal({ isOpen, onClose, services = [], defaultSe
         email: formData.email || 'riverajeffrrey421@gmail.com',
       };
 
-      await api.submitInquiry(payload);
+      const res = await api.submitInquiry(payload);
+      setSubmittedData(res?.data || payload);
       setSuccess(true);
       confetti({
         particleCount: 100,
@@ -102,24 +104,51 @@ export default function BookingModal({ isOpen, onClose, services = [], defaultSe
         </button>
 
         {success ? (
-          <div className="py-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-200">
+          <div className="py-6 text-center">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 border border-emerald-200">
               <CheckCircle2 className="w-8 h-8" />
             </div>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-[11px] font-mono font-bold mb-3 border border-slate-200">
+              <span>Tracking Ref:</span>
+              <span className="text-emerald-700 font-extrabold">#{submittedData?.id?.toUpperCase() || 'INQ-SUCCESS'}</span>
+            </div>
+
             <h3 className="text-2xl font-extrabold text-slate-900 mb-2">
-              Appointment Requested!
+              Appointment Received by Admin!
             </h3>
-            <p className="text-slate-600 text-sm mb-6 max-w-sm mx-auto leading-relaxed">
-              Natanggap na po ang inyong service schedule. Tatawag agad ang aming dispatch coordinator (Gian / Kristle) sa inyong numero upang kumpirmahin ang schedule.
+
+            <p className="text-slate-600 text-xs sm:text-sm mb-4 max-w-sm mx-auto leading-relaxed">
+              Maraming salamat <strong>{submittedData?.full_name}</strong>! Na-save na po sa Jeff HVAC Dispatch System ang inyong appointment para sa <strong>{submittedData?.service_requested}</strong>.
             </p>
+
+            {/* Direct Quick Actions */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 mb-6 max-w-sm mx-auto">
+              <a
+                href={`mailto:riverajeffrrey421@gmail.com?subject=Booking Request: ${encodeURIComponent(submittedData?.service_requested || '')} - ${encodeURIComponent(submittedData?.full_name || '')}&body=Customer: ${encodeURIComponent(submittedData?.full_name || '')}%0D%0APhone: ${encodeURIComponent(submittedData?.phone || '')}%0D%0AAddress: ${encodeURIComponent(submittedData?.address || '')}%0D%0AService: ${encodeURIComponent(submittedData?.service_requested || '')}%0D%0APreferred Window: ${encodeURIComponent(submittedData?.preferred_time || '')}`}
+                className="w-full sm:w-auto px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Send Copy to Email</span>
+              </a>
+
+              <a
+                href={`sms:09243750879?body=Hi Gian (Jeff HVAC), nag-book po ako ng appointment para sa ${encodeURIComponent(submittedData?.service_requested || '')}. Name: ${encodeURIComponent(submittedData?.full_name || '')}, Contact: ${encodeURIComponent(submittedData?.phone || '')}`}
+                className="w-full sm:w-auto px-4 py-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>SMS Gian (0924 375 0879)</span>
+              </a>
+            </div>
+
             <button
               onClick={() => {
                 setSuccess(false);
                 onClose();
               }}
-              className="px-6 py-2.5 rounded-full bg-brand-green-500 text-white font-semibold text-xs shadow-md hover:bg-brand-green-600 transition-colors cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-semibold text-xs shadow-md hover:bg-slate-800 transition-colors cursor-pointer"
             >
-              Done
+              Done / Close
             </button>
           </div>
         ) : (

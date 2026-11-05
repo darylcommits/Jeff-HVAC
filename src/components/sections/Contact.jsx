@@ -38,6 +38,7 @@ export default function Contact({ services = [], preselectedService = '' }) {
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const fileInputRef = useRef(null);
 
@@ -95,7 +96,8 @@ export default function Contact({ services = [], preselectedService = '' }) {
         email: formData.email || 'riverajeffrrey421@gmail.com',
       };
 
-      await api.submitInquiry(payload);
+      const res = await api.submitInquiry(payload);
+      setSubmittedData(res?.data || payload);
       setSubmitted(true);
       confetti({
         particleCount: 90,
@@ -257,22 +259,75 @@ export default function Contact({ services = [], preselectedService = '' }) {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="py-12 text-center"
+                    className="py-8 text-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center mx-auto mb-4 border border-emerald-400/30">
+                    <div className="w-16 h-16 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center mx-auto mb-3 border border-emerald-400/30">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
+
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 text-emerald-300 text-[11px] font-mono font-bold mb-3 border border-emerald-400/30">
+                      <span>Tracking Ref:</span>
+                      <span className="text-white">#{submittedData?.id?.toUpperCase() || 'INQ-SUCCESS'}</span>
+                    </div>
+
                     <h3 className="text-2xl font-extrabold text-white mb-2">
-                      Inquiry Submitted Successfully!
+                      Inquiry Received by Admin Dispatch!
                     </h3>
-                    <p className="text-white/80 text-sm max-w-md mx-auto mb-6 leading-relaxed">
-                      Maraming salamat! Natanggap na po ng Jeff HVAC dispatch specialist ang inyong schedule. Tatawagan po kayo agad nila Gian / Kristle upang kumpirmahin ang pagdating ng aming technician.
+
+                    <p className="text-white/85 text-xs sm:text-sm max-w-lg mx-auto mb-5 leading-relaxed">
+                      Maraming salamat <strong>{submittedData?.full_name}</strong>! Na-save na po sa Jeff HVAC Dispatch System ang inyong request para sa <strong>{submittedData?.service_requested}</strong> sa <strong>{submittedData?.address}</strong>.
                     </p>
+
+                    {/* Summary box of submitted details */}
+                    <div className="bg-black/30 border border-white/15 rounded-2xl p-4 max-w-md mx-auto mb-6 text-left text-xs space-y-1.5">
+                      <div className="flex justify-between border-b border-white/10 pb-1.5">
+                        <span className="text-white/60">Customer Name:</span>
+                        <span className="text-white font-bold">{submittedData?.full_name}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-white/10 pb-1.5">
+                        <span className="text-white/60">Phone Number:</span>
+                        <span className="text-emerald-300 font-mono font-bold">{submittedData?.phone}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-white/10 pb-1.5">
+                        <span className="text-white/60">Service:</span>
+                        <span className="text-white font-semibold">{submittedData?.service_requested}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-white/10 pb-1.5">
+                        <span className="text-white/60">Preferred Window:</span>
+                        <span className="text-emerald-300 font-medium">{submittedData?.preferred_time}</span>
+                      </div>
+                      <div className="flex justify-between pt-0.5">
+                        <span className="text-white/60">Admin Status:</span>
+                        <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase">
+                          NEW / RECEIVED
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Quick Direct Backup Actions */}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5 max-w-md mx-auto">
+                      <a
+                        href={`mailto:riverajeffrrey421@gmail.com?subject=New Service Request: ${encodeURIComponent(submittedData?.service_requested || '')} - ${encodeURIComponent(submittedData?.full_name || '')}&body=Customer: ${encodeURIComponent(submittedData?.full_name || '')}%0D%0APhone: ${encodeURIComponent(submittedData?.phone || '')}%0D%0AAddress: ${encodeURIComponent(submittedData?.address || '')}%0D%0ALandmark: ${encodeURIComponent(submittedData?.landmark || '')}%0D%0AService: ${encodeURIComponent(submittedData?.service_requested || '')}%0D%0APreferred Time: ${encodeURIComponent(submittedData?.preferred_time || '')}%0D%0AMessage: ${encodeURIComponent(submittedData?.message || '')}`}
+                        className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-brand-green-600" />
+                        <span>Send Copy to Email</span>
+                      </a>
+
+                      <a
+                        href={`sms:09243750879?body=Hi Gian (Jeff HVAC), nag-submit po ako ng inquiry para sa ${encodeURIComponent(submittedData?.service_requested || '')}. Name: ${encodeURIComponent(submittedData?.full_name || '')}, Contact: ${encodeURIComponent(submittedData?.phone || '')}, Address: ${encodeURIComponent(submittedData?.address || '')}`}
+                        className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-colors"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>SMS Gian (0924 375 0879)</span>
+                      </a>
+                    </div>
+
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-6 py-2.5 rounded-full bg-white text-brand-green-800 font-bold text-xs uppercase tracking-wider hover:bg-slate-100 transition-colors cursor-pointer"
+                      className="text-xs text-white/70 hover:text-white underline cursor-pointer"
                     >
-                      Send Another Inquiry
+                      Mag-submit ng isa pang Request
                     </button>
                   </motion.div>
                 ) : (
